@@ -12,6 +12,7 @@ import { setLoginEmpty } from "../actions/login";
 import { Home } from "../components/home/Home";
 import Login from "../components/login/Login";
 import Signup from "../components/signup/Signup";
+import { getCookie } from "../cookieCreator";
 
 const LoginSignupTemplate = () => {
   const location = useLocation();
@@ -29,10 +30,18 @@ const LoginSignupTemplate = () => {
   };
 
   useEffect(() => {
-    if (!data?.loginSuccess?.access_token) {
+    if (!data?.loginSuccess) {
       navigate("/login");
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!(getCookie("token") || data?.loginData?.access_token)) {
+      console.log("hello");
+      dispatch(setLoginEmpty());
+      navigate("/login");
+    }
+  }, [getCookie("token")]);
 
   return (
     <>

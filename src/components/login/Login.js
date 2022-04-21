@@ -14,14 +14,14 @@ const Login = () => {
 
   const onFinish = (values) => {
     dispatch(setLoginValues(values));
-    // dispatch(setRememberMe(values.remember));
+    // console.log(values);
   };
 
   useEffect(() => {
-    if (data?.loginSuccess?.access_token) {
+    if (data?.loginSuccess) {
       message.success("Logged in");
       navigate("/home");
-    } else if (data?.loginFailed?.status === 401) {
+    } else if (data?.loginSuccess) {
       message.error(`${data.loginFailed.message}`);
       navigate("/login");
       dispatch(setLoginEmpty());
@@ -29,7 +29,7 @@ const Login = () => {
   }, [data]);
 
   // useEffect(() => {
-  //   if (data?.loginSuccess?.access_token) {
+  //   if (data?.loginData?.access_token) {
   //     console.log("here");
   //     navigate("/login");
   //   }
@@ -49,9 +49,11 @@ const Login = () => {
             wrapperCol={{
               span: 16,
             }}
-            initialValues={{
-              remember: true,
-            }}
+            initialValues={
+              {
+                // remember: true,
+              }
+            }
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"

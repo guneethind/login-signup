@@ -8,18 +8,9 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { useSelector } from "react-redux";
 
-// const Hello = () => {
-//   const data = useSelector((state) => state.remembeeeeeeeer);
-//   if (!data?.rememberMe) {
-//     return "login";
-//   }
-//   return;
-// };
-
 const persistConsif = {
   key: "root",
   storage: storage,
-  // blacklist: [`${Hello()}`],
 };
 
 const persistedReducer = persistReducer(persistConsif, reducers);
