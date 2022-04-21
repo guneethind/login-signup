@@ -9,7 +9,7 @@ import storage from "redux-persist/lib/storage";
 import { useSelector } from "react-redux";
 
 // const Hello = () => {
-//   const data = useSelector((state) => state.remember);
+//   const data = useSelector((state) => state.remembeeeeeeeer);
 //   if (!data?.rememberMe) {
 //     return "login";
 //   }
