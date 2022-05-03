@@ -9,30 +9,47 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { setLoginEmpty } from "../actions/login";
+import { setTokenEmpty, setTokenFromCookie } from "../actions/token";
 import { Home } from "../components/home/Home";
 import Login from "../components/login/Login";
 import Signup from "../components/signup/Signup";
+import { getCookie } from "../cookieCreator";
 
 const LoginSignupTemplate = () => {
   const location = useLocation();
   const loginType = location.pathname === "/login" ? "primary" : "secondary";
   const signupType = location.pathname === "/signup" ? "primary" : "secondary";
 
-  const data = useSelector((state) => state.login);
+  const data = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = () => {
     dispatch(setLoginEmpty());
-
+    console.log("hello");
+    dispatch(setTokenEmpty());
     navigate("/login");
   };
 
   useEffect(() => {
-    if (!data?.loginSuccess?.access_token) {
+    if (data?.login?.loginSuccess === false) {
+      navigate("/login");
+    } else if (data?.login?.loginSuccess === true) {
+      let send_token =
+        getCookie("token") !== ""
+          ? getCookie("token")
+          : data?.login?.loginData?.access_token;
+      console.log(send_token);
+      dispatch(setTokenFromCookie(send_token));
+    }
+  }, [data?.login]);
+
+  useEffect(() => {
+    if (!(getCookie("token") || data?.login?.loginData?.access_token)) {
+      dispatch(setLoginEmpty());
       navigate("/login");
     }
-  }, [data]);
+  }, [getCookie("token")]);
 
   return (
     <>

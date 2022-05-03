@@ -1,7 +1,7 @@
-import { message } from "antd";
 import fakeAPI from "../../apis/fakeAPI";
+import { cookieCreator } from "../../cookieCreator";
 
-export const setLoginValues = ({ email, password }) => {
+export const setLoginValues = ({ email, password, remember }) => {
   return async (dispatch) => {
     try {
       const response = await fakeAPI.post("/auth/login", {
@@ -9,10 +9,17 @@ export const setLoginValues = ({ email, password }) => {
         password: `${password}`,
       });
       if (response?.data?.access_token) {
-        dispatch({
-          type: "SET_LOGIN_VALUES",
-          payload: response.data,
-        });
+        cookieCreator("token", response.data.access_token, 5);
+        if (remember) {
+          dispatch({
+            type: "SET_LOGIN_VALUES",
+            payload: response.data,
+          });
+        } else {
+          dispatch({
+            type: "SET_LOGIN_SUCCESS_TRUE",
+          });
+        }
       } else if (response?.data?.status === 401) {
         dispatch({
           type: "SET_LOGIN_ERROR",
@@ -30,6 +37,7 @@ export const setLoginValues = ({ email, password }) => {
 
 export const setLoginEmpty = () => {
   return async (dispatch) => {
+    cookieCreator("token", "", 0);
     dispatch({
       type: "SET_LOGIN_EMPTY",
     });
