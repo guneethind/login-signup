@@ -7,15 +7,10 @@ import { getCookie } from "../../cookieCreator";
 const ProductList = () => {
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.login.loginData);
-
-  let token;
-  useEffect(() => {
-    token = getCookie("token") !== "" ? getCookie("token") : data.access_token;
-  });
+  const data = useSelector((state) => state.token);
 
   const fetchProductsHandler = () => {
-    dispatch(fetchProducts(token));
+    dispatch(fetchProducts(data.token));
   };
   return (
     <>

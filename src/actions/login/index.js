@@ -9,7 +9,7 @@ export const setLoginValues = ({ email, password, remember }) => {
         password: `${password}`,
       });
       if (response?.data?.access_token) {
-        cookieCreator("token", response.data.access_token, 20);
+        cookieCreator("token", response.data.access_token, 5);
         if (remember) {
           dispatch({
             type: "SET_LOGIN_VALUES",

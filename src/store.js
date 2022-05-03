@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 const persistConsif = {
   key: "root",
   storage: storage,
+  blacklist: ["token"],
 };
 
 const persistedReducer = persistReducer(persistConsif, reducers);

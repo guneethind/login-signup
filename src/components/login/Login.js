@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginEmpty, setLoginValues } from "../../actions/login";
-import { setRememberMe } from "../../actions/rememberMe";
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import { setLoginValuesReducer } from "./login";
-import { setRememberMeReducer } from "./rememberMe";
 import { setSignupValuesReducer } from "./signup";
+import { setTokenFromCookieReducer } from "./token";
 
 const rootreducer = combineReducers({
   login: setLoginValuesReducer,
   signup: setSignupValuesReducer,
-  // remember: setRememberMeReducer,
+  token: setTokenFromCookieReducer,
 });
 
 export default rootreducer;
